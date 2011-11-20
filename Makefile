@@ -10,10 +10,10 @@ CFLAGS		= -x objective-c \
 		  -F/Developer/Library/Frameworks \
 		  -framework SenTestingKit
 
-KIWI_SOURCES	= $(wildcard submodules/Kiwi/Kiwi/*.m)
-KIWI_OBJECTS	= $(addprefix build/Kiwi/,$(notdir $(addsuffix .o,$(basename $(KIWI_SOURCES)))))
+libKiwi_SOURCES	= $(wildcard submodules/Kiwi/Kiwi/*.m)
+libKiwi_OBJECTS	= $(addprefix build/Kiwi/,$(notdir $(addsuffix .o,$(basename $(libKiwi_SOURCES)))))
 
-build/Kiwi/libKiwi.a: $(KIWI_OBJECTS)
+build/Kiwi/libKiwi.a: $(libKiwi_OBJECTS)
 	$(AR) -crs $@ $^
 
 build/Kiwi/%.o: submodules/Kiwi/Kiwi/%.m build/Kiwi
