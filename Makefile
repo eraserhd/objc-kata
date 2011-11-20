@@ -17,7 +17,7 @@ build/Kiwi/libKiwi.a: $(KIWI_OBJECTS)
 	$(AR) -crs $@ $^
 
 build/Kiwi/%.o: submodules/Kiwi/Kiwi/%.m build/Kiwi
-	$(CC) -c -o $@ $(CFLAGS) $^
+	$(CC) $(CFLAGS) -c -o $@ $<
 
 build/Kiwi:
 	mkdir -p build/Kiwi
