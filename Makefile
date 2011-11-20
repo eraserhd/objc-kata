@@ -1,6 +1,14 @@
 
 CC		= clang
-CFLAGS		= -F/Developer/Library/Frameworks -framework SenTestingKit
+CFLAGS		= -x objective-c \
+		  -arch x86_64 \
+		  -std=gnu99 \
+		  -fpascal-strings \
+		  -O0 \
+		  -DDEBUG=1 \
+		  -gdwarf-2 \
+		  -F/Developer/Library/Frameworks \
+		  -framework SenTestingKit
 
 KIWI_SOURCES	= $(wildcard submodules/Kiwi/Kiwi/*.m)
 KIWI_OBJECTS	= $(addprefix build/Kiwi/,$(notdir $(addsuffix .o,$(basename $(KIWI_SOURCES)))))
