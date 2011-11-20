@@ -16,11 +16,8 @@ libKiwi_OBJECTS	= $(addprefix build/Kiwi/,$(notdir $(addsuffix .o,$(basename $(l
 build/Kiwi/libKiwi.a: $(libKiwi_OBJECTS)
 	$(AR) -crs $@ $^
 
-build/Kiwi/%.o: submodules/Kiwi/Kiwi/%.m build/Kiwi
-	$(CC) $(CFLAGS) -c -o $@ $<
-
-build/Kiwi:
-	mkdir -p build/Kiwi
+build/Kiwi/%.o: submodules/Kiwi/Kiwi/%.m
+	mkdir -p build/Kiwi && $(CC) $(CFLAGS) -c -o $@ $<
 
 .PHONY: clean
 clean:
