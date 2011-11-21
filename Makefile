@@ -10,6 +10,30 @@ CFLAGS		= -x objective-c \
 		  -F/Developer/Library/Frameworks \
 		  -framework SenTestingKit
 
+LDFLAGS		= -arch x86_64 \
+		  -ObjC \
+		  -all_load \
+		  -bundle \
+		  -macosx_version_min 10.6 \
+		  -lc -lobjc \
+		  -F/Developer/Library/Frameworks \
+		  -framework Foundation \
+		  -framework SenTestingKit
+
+.PHONY: all
+all: build/KataTest.octest/Contents/MacOS/KataTest
+
+.PHONY: clean
+clean:
+	rm -rf build/
+
+## KataTest.bundle
+
+build/KataTest.octest/Contents/MacOS/KataTest: build/Kiwi/libKiwi.a
+	mkdir -p build/KataTest.octest/Contents/MacOS && $(LD) $(LDFLAGS) $^ -o $@
+
+## Kiwi
+
 libKiwi_SOURCES	= $(wildcard submodules/Kiwi/Kiwi/*.m)
 libKiwi_OBJECTS	= $(addprefix build/Kiwi/,$(notdir $(addsuffix .o,$(basename $(libKiwi_SOURCES)))))
 
@@ -19,7 +43,4 @@ build/Kiwi/libKiwi.a: $(libKiwi_OBJECTS)
 build/Kiwi/%.o: submodules/Kiwi/Kiwi/%.m
 	mkdir -p build/Kiwi && $(CC) $(CFLAGS) -c -o $@ $<
 
-.PHONY: clean
-clean:
-	rm -rf build/
 
