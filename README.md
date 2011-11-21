@@ -15,6 +15,10 @@ Add your kata's files to the root of the cloned repository.  The Makefile uses
 some magic shell globbing to pick up the files so that you don't need to add
 them anywhere.
 
+main.m is provided.  This file is the only file which will be linked into
+your kata but not linked into the test bundle, so it should not contain any
+significant code.
+
 [Kiwi] is imported as a submodule (this is why you need `--recursive`) and
 linked into the testing bundle automatically.
 
