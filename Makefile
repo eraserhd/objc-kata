@@ -27,6 +27,7 @@ all: test
 clean:
 	rm -rf build/
 
+##############################################################################
 ## KataTest.octest
 
 .PHONY: test
@@ -37,7 +38,8 @@ test: build/KataTest.octest/Contents/MacOS/KataTest
 build/KataTest.octest/Contents/MacOS/KataTest: build/Kiwi/libKiwi.a
 	mkdir -p build/KataTest.octest/Contents/MacOS && $(LD) $(LDFLAGS) $^ -o $@
 
-## Kiwi
+##############################################################################
+## libKiwi.a
 
 libKiwi_SOURCES	= $(wildcard submodules/Kiwi/Kiwi/*.m)
 libKiwi_OBJECTS	= $(addprefix build/Kiwi/,$(notdir $(addsuffix .o,$(basename $(libKiwi_SOURCES)))))
