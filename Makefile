@@ -21,7 +21,11 @@ LDFLAGS		= -arch x86_64 \
 		  -framework SenTestingKit
 
 .PHONY: all
-all: build/KataTest.octest/Contents/MacOS/KataTest
+all: test
+
+.PHONY: test
+test: build/KataTest.octest/Contents/MacOS/KataTest
+	OBJC_DISABLE_GC=YES /Developer/Tools/otest build/KataTest.octest
 
 .PHONY: clean
 clean:
