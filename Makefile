@@ -8,7 +8,8 @@ CFLAGS		= -x objective-c \
 		  -DDEBUG=1 \
 		  -gdwarf-2 \
 		  -F/Developer/Library/Frameworks \
-		  -framework SenTestingKit
+		  -framework SenTestingKit \
+		  -Isubmodules/Kiwi/Kiwi
 
 LDFLAGS		= -arch x86_64 \
 		  -ObjC \
@@ -48,12 +49,13 @@ build/kata/kata: $(kata_OBJECTS)
 test_NAME	= KataTest
 test_BUNDLE	= build/$(test_NAME).octest
 test_BINARY	= $(test_BUNDLE)/Contents/MacOS/$(test_NAME)
+test_OBJECTS	= $(filter-out build/kata/main.o,$(kata_OBJECTS))
 
 .PHONY: test
 test: build/KataTest.octest/Contents/MacOS/KataTest
 	OBJC_DISABLE_GC=YES /Developer/Tools/otest $(test_BUNDLE)
 
-$(test_BUNDLE)/Contents/MacOS/KataTest: build/Kiwi/libKiwi.a
+$(test_BUNDLE)/Contents/MacOS/KataTest: build/Kiwi/libKiwi.a $(test_OBJECTS)
 	mkdir -p $(dir $(test_BINARY)) && $(LD) $(LDFLAGS) $^ -o $@
 
 ##############################################################################
