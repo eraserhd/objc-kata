@@ -50,7 +50,9 @@ build/kata/kata: $(kata_OBJECTS)
 test_NAME	= KataTest
 test_BUNDLE	= build/$(test_NAME).octest
 test_BINARY	= $(test_BUNDLE)/Contents/MacOS/$(test_NAME)
-test_OBJECTS	= $(filter-out build/kata/main.o,$(kata_OBJECTS))
+test_SOURCES	= $(wildcard *Spec.m)
+test_OBJECTS	= $(filter-out build/kata/main.o,$(kata_OBJECTS)) \
+		  $(addprefix build/kata/,$(addsuffix .o,$(basename $(test_SOURCES))))
 
 .PHONY: test
 test: build/KataTest.octest/Contents/MacOS/KataTest
