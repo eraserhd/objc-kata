@@ -32,7 +32,7 @@ clean:
 ##############################################################################
 ## Kata
 
-kata_SOURCES	= $(wildcard *.m)
+kata_SOURCES	= $(filter-out %Spec.m,$(wildcard *.m))
 kata_OBJECTS	= $(addprefix build/kata/,$(addsuffix .o,$(basename $(kata_SOURCES))))
 
 .PHONY: kata
