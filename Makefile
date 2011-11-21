@@ -23,15 +23,16 @@ LDFLAGS		= -arch x86_64 \
 .PHONY: all
 all: test
 
-.PHONY: test
-test: build/KataTest.octest/Contents/MacOS/KataTest
-	OBJC_DISABLE_GC=YES /Developer/Tools/otest build/KataTest.octest
-
 .PHONY: clean
 clean:
 	rm -rf build/
 
-## KataTest.bundle
+## KataTest.octest
+
+.PHONY: test
+test: build/KataTest.octest/Contents/MacOS/KataTest
+	OBJC_DISABLE_GC=YES /Developer/Tools/otest build/KataTest.octest
+
 
 build/KataTest.octest/Contents/MacOS/KataTest: build/Kiwi/libKiwi.a
 	mkdir -p build/KataTest.octest/Contents/MacOS && $(LD) $(LDFLAGS) $^ -o $@
