@@ -7,6 +7,7 @@ CFLAGS		= -x objective-c \
 		  -O0 \
 		  -DDEBUG=1 \
 		  -gdwarf-2 \
+		  -Werror \
 		  -F/Developer/Library/Frameworks \
 		  -framework SenTestingKit \
 		  -Isubmodules/Kiwi/Kiwi
