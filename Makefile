@@ -28,18 +28,21 @@ clean:
 	rm -rf build/
 
 ##############################################################################
-## KataTest.octest
+## Test bundle
+
+test_NAME	= KataTest
+test_BUNDLE	= build/$(test_NAME).octest
+test_BINARY	= $(test_BUNDLE)/Contents/MacOS/$(test_NAME)
 
 .PHONY: test
 test: build/KataTest.octest/Contents/MacOS/KataTest
-	OBJC_DISABLE_GC=YES /Developer/Tools/otest build/KataTest.octest
+	OBJC_DISABLE_GC=YES /Developer/Tools/otest $(test_BUNDLE)
 
-
-build/KataTest.octest/Contents/MacOS/KataTest: build/Kiwi/libKiwi.a
-	mkdir -p build/KataTest.octest/Contents/MacOS && $(LD) $(LDFLAGS) $^ -o $@
+$(test_BUNDLE)/Contents/MacOS/KataTest: build/Kiwi/libKiwi.a
+	mkdir -p $(dir $(test_BINARY)) && $(LD) $(LDFLAGS) $^ -o $@
 
 ##############################################################################
-## libKiwi.a
+## Kiwi library
 
 libKiwi_SOURCES	= $(wildcard submodules/Kiwi/Kiwi/*.m)
 libKiwi_OBJECTS	= $(addprefix build/Kiwi/,$(notdir $(addsuffix .o,$(basename $(libKiwi_SOURCES)))))
