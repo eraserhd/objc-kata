@@ -21,11 +21,26 @@ LDFLAGS		= -arch x86_64 \
 		  -framework SenTestingKit
 
 .PHONY: all
-all: test
+all: test kata
 
 .PHONY: clean
 clean:
 	rm -rf build/
+
+##############################################################################
+## Kata
+
+kata_SOURCES	= $(wildcard *.m)
+kata_OBJECTS	= $(addprefix build/kata/,$(addsuffix .o,$(basename $(kata_SOURCES))))
+
+.PHONY: kata
+kata: build/kata/kata
+
+build/kata/%.o: %.m
+	mkdir -p build/kata && $(CC) $(CFLAGS) -c -o $@ $<
+
+build/kata/kata: $(kata_OBJECTS)
+	$(LD) $(LDFLAGS) $^ -o $@
 
 ##############################################################################
 ## Test bundle
