@@ -61,6 +61,13 @@ $(test_BUNDLE)/Contents/MacOS/KataTest: build/Kiwi/libKiwi.a $(test_OBJECTS)
 ##############################################################################
 ## Kiwi library
 
+# If invoked without submodules initialized, initialize them.
+
+ifeq (,$(wildcard submodules/Kiwi/*))
+$(shell git submodule init)
+$(shell git submodule update)
+endif
+
 libKiwi_SOURCES	= $(wildcard submodules/Kiwi/Kiwi/*.m)
 libKiwi_OBJECTS	= $(addprefix build/Kiwi/,$(notdir $(addsuffix .o,$(basename $(libKiwi_SOURCES)))))
 
