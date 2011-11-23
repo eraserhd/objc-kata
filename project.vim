@@ -1,4 +1,6 @@
 
+set errorformat=%f:%l:\ %m
+
 map ,xt :call BuildAndRunTests()<CR>
 function! BuildAndRunTests()
   echo "Building and running tests... "
