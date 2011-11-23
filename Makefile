@@ -1,16 +1,6 @@
 
 CC		= clang
-CFLAGS		= -x objective-c \
-		  -arch x86_64 \
-		  -std=gnu99 \
-		  -fpascal-strings \
-		  -O0 \
-		  -DDEBUG=1 \
-		  -gdwarf-2 \
-		  -Werror \
-		  -F/Developer/Library/Frameworks \
-		  -framework SenTestingKit \
-		  -Isubmodules/Kiwi/Kiwi
+CFLAGS		= $(shell cat .clang_complete)
 
 LDFLAGS		= -arch x86_64 \
 		  -ObjC \
