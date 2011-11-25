@@ -13,7 +13,13 @@ if your fingers often push before your brain engages.
 
 Add your kata's files to the root of the cloned repository.  The Makefile uses
 some magic shell globbing to pick up the files so that you don't need to add
-them anywhere.
+them anywhere.  All you need to do to build and run tests is run:
+
+    make
+
+Also, `project.vim` contains mappings and config for vim.  With it, you can
+use `,xt` to build and run tests and drop to quickfix mode if something
+breaks.
 
 main.m is provided.  This file is the only file which will be linked into
 your kata but not linked into the test bundle, so it should not contain any
