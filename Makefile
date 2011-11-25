@@ -29,7 +29,7 @@ kata_OBJECTS	= $(addprefix build/kata/,$(addsuffix .o,$(basename $(kata_SOURCES)
 kata: build/kata/kata
 
 build/kata/%.o: %.m
-	mkdir -p build/kata && $(CC) $(CFLAGS) -c -o $@ $<
+	$(CC) $(CFLAGS) -c -o $@ $<
 
 build/kata/kata: $(kata_OBJECTS)
 	$(LD) $(LDFLAGS) $^ -o $@
@@ -50,6 +50,17 @@ test: build/KataTest.octest/Contents/MacOS/KataTest
 
 $(test_BUNDLE)/Contents/MacOS/KataTest: build/Kiwi/libKiwi.a $(test_OBJECTS)
 	mkdir -p $(dir $(test_BINARY)) && $(LD) $(LDFLAGS) $^ -o $@
+
+##############################################################################
+## Dependencies
+
+$(shell mkdir -p build/kata)
+kata_DEPFILES	= $(addsuffix .d,$(kata_OBJECTS))
+
+build/kata/%.o.d: %.m
+	$(CC) -MM $(CFLAGS) $^ |sed -e 's,^\([^ 	]\),build/kata/\1,' >$@
+
+include $(kata_DEPFILES)
 
 ##############################################################################
 ## Kiwi library
